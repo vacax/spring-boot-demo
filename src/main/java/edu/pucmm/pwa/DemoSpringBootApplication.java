@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import java.util.Date;
+
 @SpringBootApplication
 public class DemoSpringBootApplication {
 
@@ -23,6 +25,8 @@ public class DemoSpringBootApplication {
 		Profesor profesor = new Profesor();
 		profesor.setNombre("Carlos");
 		profesor.setApellido("Camacho");
+		profesor.setFechaNacimiento(new Date());
+		profesor.setCedula("031-9999999-0");
 		profesorRepository.save(profesor);
 	}
 }

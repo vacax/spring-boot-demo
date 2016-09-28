@@ -36,4 +36,23 @@ public class ProfesorServices {
     public List<Profesor> profesoresConApellidos(){
         return profesorRepository.findAllByApellidoNotNull();
     }
+
+    /**
+     *
+     * @param nombre
+     * @return
+     */
+    public List<Profesor> listaProfesorInicia(String nombre){
+        System.out.println("Nombre recibido: "+nombre);
+        return profesorRepository.findAllByNombreStartingWith(nombre);
+    }
+
+    public List<Profesor> listaProfesorIniciaIgnorandoCase(String nombre){
+        System.out.println("Nombre recibido: "+nombre);
+        return profesorRepository.findAllByNombreStartingWithIgnoreCase(nombre);
+    }
+
+    public Profesor profesorPorCedula(String cedula) {
+        return profesorRepository.consultaProfesor(cedula);
+    }
 }

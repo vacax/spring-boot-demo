@@ -1,9 +1,8 @@
 package edu.pucmm.pwa.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by vacax on 20/09/16.
@@ -19,6 +18,8 @@ public class Profesor implements Serializable{
     private String apellido = "";
     private String ciudad = "";
     private String cedula= "";
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
 
     public Long getId() {
         return id;
@@ -58,5 +59,13 @@ public class Profesor implements Serializable{
 
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 }
