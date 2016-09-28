@@ -17,9 +17,11 @@ public class DemoSpringBootApplication {
 
 		ApplicationContext applicationContext = SpringApplication.run(DemoSpringBootApplication.class, args);
 		String[] lista = applicationContext.getBeanDefinitionNames();
+		System.out.println("====== Beans Registrados =====");
 		for(String bean : lista){
 			System.out.println(""+bean);
 		}
+		System.out.println("====== FIN Beans Registrados =====");
 
 		ProfesorRepository profesorRepository = (ProfesorRepository) applicationContext.getBean("profesorRepository");
 		Profesor profesor = new Profesor();
