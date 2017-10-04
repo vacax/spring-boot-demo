@@ -16,6 +16,7 @@ import java.util.Locale;
 @RequestMapping("/freemarker")
 public class FreeMarkerController {
 
+    //Inyección de dependencia para la internacionalización
     @Autowired
     private MessageSource messageSource;
 
@@ -77,6 +78,7 @@ public class FreeMarkerController {
 
         model.addAttribute("nombre", nombre);
         model.addAttribute("saludo", messageSource.getMessage("saludo", null, locale));
+        model.addAttribute("con_atributo", messageSource.getMessage("con_atributo", new Object[]{20011136}, locale));
 
       return "/freemarker/pruebaI18n";
     }

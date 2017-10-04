@@ -35,6 +35,7 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
     @Query("select u from Profesor u where u.cedula = :cedula")
     Profesor consultaProfesorCedula(@Param("cedula") String cedula);
 
-    @Query(value = "select * from profesor p where p.cedula = :cedula", nativeQuery = true)
+    @Query(value = "select * from profesor p where p.cedula = :cedula",
+            nativeQuery = true)
     Profesor consultaProfesorCedulaNativo(@Param("cedula") String cedula);
 }

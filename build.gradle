@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.4.1.BUILD-SNAPSHOT'
+		springBootVersion = '1.5.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -40,6 +40,9 @@ dependencies {
 
 	//Trabajando con FreeMarker...
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
+
+	//Thymeleaf plantilla
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 	// https://mvnrepository.com/artifact/com.h2database/h2
 	compile group: 'com.h2database', name: 'h2', version: '1.4.192'

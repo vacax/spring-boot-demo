@@ -6,6 +6,7 @@
 </head>
 <body>
 <h2>${saludo} ${nombre}!</h2>
+<h2>${con_atributo}</h2>
 <footer>
     <#-- Incluyendo internacionalización-->
     <@spring.message "derecho_autor" />

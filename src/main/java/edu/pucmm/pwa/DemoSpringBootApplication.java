@@ -8,11 +8,12 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.Date;
 
-@SpringBootApplication
+@SpringBootApplication()
 public class DemoSpringBootApplication {
 
 	public static void main(String[] args) {
 
+		//Crear el template
 		//SpringApplication.run(DemoSpringBootApplication.class, args);
 
 		ApplicationContext applicationContext = SpringApplication.run(DemoSpringBootApplication.class, args);
@@ -23,6 +24,7 @@ public class DemoSpringBootApplication {
 		}
 		System.out.println("====== FIN Beans Registrados =====");
 
+		//Sin Inyección de dependencia:
 		ProfesorRepository profesorRepository = (ProfesorRepository) applicationContext.getBean("profesorRepository");
 		Profesor profesor = new Profesor();
 		profesor.setNombre("Carlos");
