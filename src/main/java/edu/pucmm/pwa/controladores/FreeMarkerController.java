@@ -83,4 +83,28 @@ public class FreeMarkerController {
       return "/freemarker/pruebaI18n";
     }
 
+    /**
+     * Metodo para probar la redireccion
+     * @param model
+     * @return
+     */
+    @RequestMapping("/redireccion")
+    public String redireccionPagina(Model model){
+        System.out.println("Redireccioando a otra llamada.");
+       return "redirect:/freemarker/pruebai18n"; //aplicando la redirección
+    }
+
+    /**
+     * Metodo para probar el forward, la diferencia es una llamada
+     * encadenada en el servidor, no hace otra llamada el cliente.
+     * No cambia la URL
+     * @param model
+     * @return
+     */
+    @RequestMapping("/forward")
+    public String forwardPagina(Model model){
+        System.out.println("Redireccioando a otra llamada.");
+        return "forward:/freemarker/bootstrap"; //aplicando la redirección
+    }
+
 }
