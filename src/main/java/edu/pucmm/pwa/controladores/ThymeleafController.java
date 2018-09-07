@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@Controller //indica que es un controlador.
+@Controller() //indica que es un controlador.
 @RequestMapping(path = "/thymeleaf")
 public class ThymeleafController {
 
@@ -17,6 +17,8 @@ public class ThymeleafController {
      * Representa el modelo que será pasado en la vista.
      * @param matricula
      * Valor como parametro.
+     *
+     * Para ejecutar: http://localhost:8080/thymeleaf/?matricula=20011136
      * @return
      */
     @RequestMapping(path = "/")

@@ -10,8 +10,9 @@ public class Usuario implements Serializable {
     @Id
     private String username;
     private String password;
-    private String nombre;
     private boolean activo;
+    //Tener todos los campos necesarios de mi modelo..
+    private String nombre;
 
     //relación
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

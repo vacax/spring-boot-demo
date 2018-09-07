@@ -39,26 +39,30 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
         //Cargando los usuarios en memoria.
         auth.inMemoryAuthentication()
-                .withUser("admin")
+                /*.withUser("admin")
                 .password("admin")
                 .roles("ADMIN","USER")
-                .and()
+                .and()*/
                 .withUser("usuario")
                 .password("1234")
-                .roles("USER");
+                .roles("USER")
+                .and()
+                .withUser("vendedor")
+                .password("1234")
+                .roles("VENDEDOR");
 
 
         //Configuración para acceso vía JDBC
-        auth.jdbcAuthentication()
+       /* auth.jdbcAuthentication()
                 .usersByUsernameQuery(queryUsuario)
                 .authoritiesByUsernameQuery(queryRol)
                 .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder);
+                .passwordEncoder(bCryptPasswordEncoder);*/
 
         //Configuración JPA.
-        /*auth
+        auth
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);*/
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     /*
@@ -69,7 +73,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //Marcando las reglas para permitir unicamente los usuarios
-        http.csrf().disable()
+        http
                 .authorizeRequests()
                 .antMatchers("/","/css/**", "/js/**").permitAll() //permitiendo llamadas a esas urls.
                 .antMatchers("/dbconsole/**").permitAll()
@@ -86,6 +90,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
         //deshabilitando las seguridad contra los frame internos.
         //Necesario para H2.
+        http.csrf().disable();
         http.headers().frameOptions().disable();
     }
 }
