@@ -41,6 +41,6 @@ public class AdminController {
     @Secured({"ROLE_USER"})
     @RequestMapping("/actualizar")
     public String actualizar(){
-        return "Borrar del admin";
+        return "Actualizar del admin";
     }
 }

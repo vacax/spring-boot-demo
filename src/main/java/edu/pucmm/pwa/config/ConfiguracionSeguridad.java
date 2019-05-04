@@ -37,23 +37,23 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
         //Clase para encriptar contraseña
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 
-        //Cargando los usuarios en memoria.
+       /* //Cargando los usuarios en memoria.
         auth.inMemoryAuthentication()
-                /*.withUser("admin")
+                .withUser("admin")
                 .password("admin")
                 .roles("ADMIN","USER")
-                .and()*/
+                .and()
                 .withUser("usuario")
                 .password("1234")
                 .roles("USER")
                 .and()
                 .withUser("vendedor")
                 .password("1234")
-                .roles("VENDEDOR");
+                .roles("VENDEDOR");*/
 
 
-        //Configuración para acceso vía JDBC
-       /* auth.jdbcAuthentication()
+        /*//Configuración para acceso vía JDBC
+        auth.jdbcAuthentication()
                 .usersByUsernameQuery(queryUsuario)
                 .authoritiesByUsernameQuery(queryRol)
                 .dataSource(dataSource)
