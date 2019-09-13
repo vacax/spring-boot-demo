@@ -32,4 +32,12 @@ public class Estudiante {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "matricula=" + matricula +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }
