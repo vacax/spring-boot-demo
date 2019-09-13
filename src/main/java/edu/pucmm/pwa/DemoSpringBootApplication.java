@@ -21,6 +21,7 @@ public class DemoSpringBootApplication {
 		//SpringApplication.run(DemoSpringBootApplication.class, args);
 
 		ApplicationContext applicationContext = SpringApplication.run(DemoSpringBootApplication.class, args);
+
 		String[] lista = applicationContext.getBeanDefinitionNames();
 		System.out.println("====== Beans Registrados =====");
 		for(String bean : lista){

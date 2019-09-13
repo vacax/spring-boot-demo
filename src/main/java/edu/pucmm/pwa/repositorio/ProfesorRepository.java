@@ -1,6 +1,7 @@
 package edu.pucmm.pwa.repositorio;
 
 import edu.pucmm.pwa.entidades.Profesor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -27,6 +28,9 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 
     //Ordenando la lista de profesores por fecha.
     List<Profesor> findAllByOrderByFechaNacimientoDesc();
+
+    //Lista los profesores por ciudad paginando.
+    List<Profesor> findAllByCiudad(String ciudad, Pageable pageable);
 
     //Trabajando con los querys de HQL.
     @Query("select u from Profesor u where u.cedula = ?1")

@@ -30,14 +30,19 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
     //Opción JPA
     @Autowired
-    private UserDetailsService userDetailsService;
+    //private UserDetailsService userDetailsService;
 
+    /**
+     * La autentificación de los usuarios.
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //Clase para encriptar contraseña
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 
-       /* //Cargando los usuarios en memoria.
+        //Cargando los usuarios en memoria.
         auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password("admin")
@@ -49,7 +54,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("vendedor")
                 .password("1234")
-                .roles("VENDEDOR");*/
+                .roles("VENDEDOR");
 
 
         /*//Configuración para acceso vía JDBC
@@ -60,9 +65,9 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bCryptPasswordEncoder);*/
 
         //Configuración JPA.
-        auth
+        /*auth
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);
+                .passwordEncoder(bCryptPasswordEncoder);*/
     }
 
     /*
@@ -78,7 +83,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/css/**", "/js/**", "/actuator/**").permitAll() //permitiendo llamadas a esas urls.
                 .antMatchers("/dbconsole/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "USER")
-                //.anyRequest().authenticated() //cualquier llamada debe ser validada
+                 //.anyRequest().denyAll() //cualquier llamada debe ser validada
                 .and()
                 .formLogin()
                     .loginPage("/login") //indicando la ruta que estaremos utilizando.

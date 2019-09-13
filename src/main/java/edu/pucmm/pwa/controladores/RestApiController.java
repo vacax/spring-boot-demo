@@ -23,7 +23,7 @@ public class RestApiController {
     private EstudianteServices estudianteServices;
 
     @Autowired
-    private ProfesorServices profesorServices; //new ProfesorServices(); //no puedo instanciar.
+    private ProfesorServices profesorServices; //= new ProfesorServices(); //no puedo instanciar.
 
     //Inyectando los ambientes.
     @Autowired
