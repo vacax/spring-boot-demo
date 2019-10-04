@@ -8,6 +8,7 @@ import edu.pucmm.pwa.servicios.ProfesorServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class RestApiController {
     @Value("${holaMundoControlador.mensaje}")
     private String mensajeDesdePropiedades;
 
+    
     @RequestMapping("/")
     public String holaMundo(){
         return "Hola Mundo Desde Spring Boot: "+ambienteSesion.getContador();

@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 /**
  * Created by vacax on 27/09/16.
  */
-@Configurable
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
@@ -30,7 +29,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
     //Opción JPA
     @Autowired
-    //private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     /**
      * La autentificación de los usuarios.
@@ -42,32 +41,33 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
         //Clase para encriptar contraseña
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 
-        //Cargando los usuarios en memoria.
-        auth.inMemoryAuthentication()
+        /*//Cargando los usuarios en memoria.
+        auth.inMemoryAuthentication().passwordEncoder(bCryptPasswordEncoder)
                 .withUser("admin")
-                .password("admin")
+                .password(bCryptPasswordEncoder.encode("admin"))
                 .roles("ADMIN","USER")
                 .and()
                 .withUser("usuario")
-                .password("1234")
+                .password(bCryptPasswordEncoder.encode("1234"))
                 .roles("USER")
                 .and()
                 .withUser("vendedor")
-                .password("1234")
-                .roles("VENDEDOR");
+                .password(bCryptPasswordEncoder.encode("1234"))
+                .roles("VENDEDOR");*/
 
 
-        /*//Configuración para acceso vía JDBC
-        auth.jdbcAuthentication()
+
+        //Configuración para acceso vía JDBC
+       /* auth.jdbcAuthentication()
                 .usersByUsernameQuery(queryUsuario)
                 .authoritiesByUsernameQuery(queryRol)
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);*/
 
         //Configuración JPA.
-        /*auth
+        auth
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);*/
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     /*
@@ -83,7 +83,8 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/css/**", "/js/**", "/actuator/**").permitAll() //permitiendo llamadas a esas urls.
                 .antMatchers("/dbconsole/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "USER")
-                 //.anyRequest().denyAll() //cualquier llamada debe ser validada
+                .antMatchers("/estudiantes").permitAll() //hasAnyRole("ADMIN", "USER")
+                .anyRequest().denyAll() //cualquier llamada debe ser validada
                 .and()
                 .formLogin()
                     .loginPage("/login") //indicando la ruta que estaremos utilizando.
