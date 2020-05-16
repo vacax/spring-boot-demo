@@ -84,7 +84,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dbconsole/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/estudiantes").permitAll() //hasAnyRole("ADMIN", "USER")
-                .anyRequest().denyAll() //cualquier llamada debe ser validada
+                .anyRequest().permitAll()//denyAll() //cualquier llamada debe ser validada
                 .and()
                 .formLogin()
                     .loginPage("/login") //indicando la ruta que estaremos utilizando.
