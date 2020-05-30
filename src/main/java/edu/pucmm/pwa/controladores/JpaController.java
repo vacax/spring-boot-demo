@@ -26,6 +26,11 @@ public class JpaController {
        return profesorServices.listaProfesorInicia(inicia);
     }
 
+    /**
+     * http://localhost:8080/jpa/profesorIniciaIgnorandoCase/ca
+     * @param inicia
+     * @return
+     */
     @ResponseBody //Si utilizo RestController no es necesario incluir.
     @RequestMapping("/profesorIniciaIgnorandoCase/{inicia}")
     public List<Profesor> listaProfesorIniciaConIgnorandoCase(@PathVariable String inicia){

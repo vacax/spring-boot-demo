@@ -24,10 +24,11 @@ public class ProfesorServices {
 
     /**
      * Indica que será una transacción, ver la anotación...
+     * Si genero una excepción del tipo runtime realiza el rollback.
      * @param profesor
      * @return
      */
-    @Transactional
+    @Transactional()
     public Profesor creacionProfesor(Profesor profesor){
         profesorRepository.save(profesor);
         return profesor;

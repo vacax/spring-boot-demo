@@ -25,6 +25,8 @@ public class FreeMarkerController {
      * de forma automatica el retorno de la clase.
      * Ubicada por defecto en resources/templates
      *
+     * http://localhost:8080/freemarker/
+     *
      * @param model
      * @param nombre
      * @return

@@ -18,6 +18,7 @@ import java.util.List;
  * Created by vacax on 20/09/16.
  */
 @RestController
+//@RequestMapping("/api/")
 public class RestApiController {
 
     //Inyección de dependecia.
@@ -67,7 +68,7 @@ public class RestApiController {
      * @return
      */
     @RequestMapping("/estudiante/{matricula}")
-    public Estudiante getEstudiante(@PathVariable int matricula){
+    public Estudiante getEstudiante(@PathVariable() int matricula){
         return new Estudiante(matricula);
     }
 
@@ -78,6 +79,7 @@ public class RestApiController {
      * @return
      */
     @RequestMapping(value = "/estudiante", method = RequestMethod.PUT)
+    //@PutMapping(path = "/estudiante")
     public String insertarEstudiante(@RequestParam int matricula, @RequestParam String nombre){
         Estudiante estudiante = new Estudiante(matricula);
         estudiante.setNombre(nombre);

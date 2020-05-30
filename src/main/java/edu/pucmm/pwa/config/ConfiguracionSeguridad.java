@@ -41,8 +41,8 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
         //Clase para encriptar contraseña
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
 
-        /*//Cargando los usuarios en memoria.
-        auth.inMemoryAuthentication().passwordEncoder(bCryptPasswordEncoder)
+        //Cargando los usuarios en memoria.
+        /*auth.inMemoryAuthentication().passwordEncoder(bCryptPasswordEncoder)
                 .withUser("admin")
                 .password(bCryptPasswordEncoder.encode("admin"))
                 .roles("ADMIN","USER")
@@ -82,9 +82,9 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/css/**", "/js/**", "/actuator/**").permitAll() //permitiendo llamadas a esas urls.
                 .antMatchers("/dbconsole/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/admin/").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/estudiantes").permitAll() //hasAnyRole("ADMIN", "USER")
-                .anyRequest().permitAll()//denyAll() //cualquier llamada debe ser validada
+                .anyRequest().denyAll() //cualquier llamada debe ser validada
                 .and()
                 .formLogin()
                     .loginPage("/login") //indicando la ruta que estaremos utilizando.

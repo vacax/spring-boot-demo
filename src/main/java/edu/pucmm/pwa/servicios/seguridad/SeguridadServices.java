@@ -46,6 +46,12 @@ public class SeguridadServices implements UserDetailsService {
         usuarioRepository.save(admin);
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario user = usuarioRepository.findByUsername(username);

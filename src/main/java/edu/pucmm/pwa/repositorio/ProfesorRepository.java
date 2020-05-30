@@ -32,7 +32,7 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
     //Lista los profesores por ciudad paginando.
     List<Profesor> findAllByCiudad(String ciudad, Pageable pageable);
 
-    //Trabajando con los querys de HQL.
+    //Trabajando con los querys de HQL JPQL.
     @Query("select u from Profesor u where u.cedula = ?1")
     Profesor consultaProfesor(String cedula);
 

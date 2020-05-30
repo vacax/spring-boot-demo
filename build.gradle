@@ -22,6 +22,9 @@ dependencies {
 	//Incluyendo el módulo de seguridad.
 	compile('org.springframework.boot:spring-boot-starter-security')
 
+	//cliente spring boot admin.
+	compile('de.codecentric:spring-boot-admin-starter-client:2.2.2')
+
 	//Trabajando con FreeMarker...
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
 

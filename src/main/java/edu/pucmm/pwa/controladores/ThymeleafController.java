@@ -2,7 +2,9 @@ package edu.pucmm.pwa.controladores;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
@@ -21,12 +23,14 @@ public class ThymeleafController {
      * Para ejecutar: http://localhost:8080/thymeleaf/?matricula=20011136
      * @return
      */
-    @RequestMapping(path = "/")
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    //@GetMapping(path = "/") //son los mismo...
     public String index(Model model, @RequestParam(name = "matricula") int matricula){
         //
         model.addAttribute("titulo", "Pagina desde Thymeleaf");
         model.addAttribute("mensaje", "Pagina desde Thymeleaf");
         model.addAttribute("matricula", matricula);
+        model.addAttribute("otraVariable", "asdasdasdas");
         // direccioando a la vista.
         return "/thymeleaf/index";
     }
