@@ -1,10 +1,12 @@
 package edu.pucmm.pwa.controladores;
 
+import edu.pucmm.pwa.ambientes.AmbienteSesion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 /**
@@ -13,6 +15,9 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Autowired
+    private AmbienteSesion ambienteSesion;
 
     /**
      *
@@ -23,7 +28,7 @@ public class AdminController {
     @RequestMapping("/")
     public String index(Principal principal){
 
-        return "Usuario Conectado: "+principal.getName();
+        return "Usuario Conectado: "+principal.getName()+" --- "+ambienteSesion.getContador();
     }
 
     @Secured({"ROLE_ADMIN"})

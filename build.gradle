@@ -39,6 +39,9 @@ dependencies {
 	compile 'org.webjars:jquery:3.1.0'
 	compile 'org.webjars:materializecss:0.97.7'
 
+	//Incluyendo la librreria de OpenApi3.
+	compile 'org.springdoc:springdoc-openapi-ui:1.2.32'
+
 	//Prueba.
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

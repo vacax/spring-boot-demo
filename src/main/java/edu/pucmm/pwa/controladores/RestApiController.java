@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,8 +39,14 @@ public class RestApiController {
 
     
     @RequestMapping("/")
-    public String holaMundo(){
-        return "Hola Mundo Desde Spring Boot: "+ambienteSesion.getContador();
+    public String holaMundo(HttpSession session){
+        Integer contador = (Integer) session.getAttribute("contador");
+        if(contador==null){
+            contador=0;
+        }
+        contador++;
+        session.setAttribute("contador", contador);
+        return "Hola Mundo Desde Spring Boot: "+ambienteSesion.getContador()+" - contador Sesion...: "+contador;
     }
 
     @RequestMapping("/profesores")
