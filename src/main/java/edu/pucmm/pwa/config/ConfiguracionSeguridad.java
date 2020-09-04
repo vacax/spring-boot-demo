@@ -82,6 +82,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/css/**", "/js/**", "/actuator/**").permitAll() //permitiendo llamadas a esas urls.
                 .antMatchers("/dbconsole/**").permitAll()
+                .antMatchers("/thymeleaf/**").permitAll()
                 .antMatchers("/api-docs/**", "/api-docs.yaml", "/swagger-ui.html", "/swagger-ui/**").permitAll() //para OpenApi
                 .antMatchers("/admin/").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/estudiantes").permitAll() //hasAnyRole("ADMIN", "USER")

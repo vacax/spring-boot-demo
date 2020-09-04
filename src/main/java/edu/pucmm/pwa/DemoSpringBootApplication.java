@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.Date;
 
-@SpringBootApplication()
+@SpringBootApplication() //scanBasePackages = {"edu.pucmm.otro", "edu.pucmm.pwa"}
 public class DemoSpringBootApplication {
 
 
