@@ -19,7 +19,7 @@ import java.util.List;
  * Created by vacax on 20/09/16.
  */
 @RestController
-//@RequestMapping("/api/")
+@RequestMapping("/api/")
 public class RestApiController {
 
     //Inyección de dependecia.

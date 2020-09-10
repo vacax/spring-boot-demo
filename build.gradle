@@ -28,7 +28,7 @@ dependencies {
 	//Trabajando con FreeMarker...
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
 
-	//Thymeleaf plantilla
+	//Thymeleaf plantilla Thymeleaf
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 	// https://mvnrepository.com/artifact/com.h2database/h2
