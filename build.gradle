@@ -42,6 +42,8 @@ dependencies {
 	//Incluyendo la librreria de OpenApi3.
 	compile 'org.springdoc:springdoc-openapi-ui:1.2.32'
 
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.8'
+
 	//Prueba.
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

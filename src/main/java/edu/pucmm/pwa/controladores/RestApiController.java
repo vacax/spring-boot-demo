@@ -74,7 +74,7 @@ public class RestApiController {
      * @param matricula
      * @return
      */
-    @RequestMapping("/estudiante/{matricula}")
+    @RequestMapping(value = "/estudiante/{matricula}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public Estudiante getEstudiante(@PathVariable() int matricula){
         return new Estudiante(matricula);
     }
@@ -87,7 +87,7 @@ public class RestApiController {
      */
     @RequestMapping(value = "/estudiante", method = RequestMethod.PUT)
     //@PutMapping(path = "/estudiante")
-    public String insertarEstudiante(@RequestParam int matricula, @RequestParam String nombre){
+    public String insertarEstudiante(@RequestParam() int matricula, @RequestParam String nombre){
         Estudiante estudiante = new Estudiante(matricula);
         estudiante.setNombre(nombre);
         return ""+estudiante.getMatricula();
