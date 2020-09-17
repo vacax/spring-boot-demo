@@ -3,6 +3,7 @@ package edu.pucmm.pwa.servicios;
 import edu.pucmm.pwa.entidades.Profesor;
 import edu.pucmm.pwa.repositorio.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -11,7 +11,7 @@ import java.util.Date;
 public class Profesor implements Serializable{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private
     Long id;
     private String nombre;
