@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
 /**
  * Created by vacax on 27/09/16.
  */
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
@@ -26,7 +28,6 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
     private String queryUsuario;
     @Value("${query.rol-jdbc}")
     private String queryRol;
-
     //Opción JPA
     @Autowired
     private UserDetailsService userDetailsService;
@@ -58,7 +59,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
 
         //Configuración para acceso vía JDBC
-       /* auth.jdbcAuthentication()
+        /*auth.jdbcAuthentication()
                 .usersByUsernameQuery(queryUsuario)
                 .authoritiesByUsernameQuery(queryRol)
                 .dataSource(dataSource)
@@ -74,7 +75,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
      * Permite configurar las reglas de seguridad.
      * @param http
      * @throws Exception
-    */
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //Marcando las reglas para permitir unicamente los usuarios
@@ -86,19 +87,22 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api-docs/**", "/api-docs.yaml", "/swagger-ui.html", "/swagger-ui/**").permitAll() //para OpenApi
                 .antMatchers("/admin/").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/estudiantes").permitAll() //hasAnyRole("ADMIN", "USER")
-                .anyRequest().denyAll() //cualquier llamada debe ser validada
+                .anyRequest().authenticated() //cualquier llamada debe ser validada
                 .and()
                 .formLogin()
-                    .loginPage("/login") //indicando la ruta que estaremos utilizando.
-                    .failureUrl("/login?error") //en caso de fallar puedo indicar otra pagina.
-                    .permitAll()
+                .loginPage("/login") //indicando la ruta que estaremos utilizando.
+                .failureUrl("/login?error") //en caso de fallar puedo indicar otra pagina.
+                .permitAll()
                 .and()
                 .logout()
-                    .permitAll();
+                .permitAll();
 
-        //deshabilitando las seguridad contra los frame internos.
-        //Necesario para H2.
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
+        //TODO: validar exclusivamente en ambiente de prueba.
+        // deshabilitando las seguridad contra los frame internos.
+        //if(!profiles.matches(Pre"prod")){
+            //Necesario para H2.
+            http.csrf().disable();
+            http.headers().frameOptions().disable();
+        //}
     }
 }
