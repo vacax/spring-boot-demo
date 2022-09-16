@@ -1,12 +1,13 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.7.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'org.springframework.boot' version '2.7.3'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
 }
 
+
 group = 'edu.pucmm'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
@@ -14,37 +15,37 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-devtools')
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	//compile('org.springframework.boot:spring-boot-starter-remote-shell')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.projectlombok:lombok')
+	implementation('org.springframework.boot:spring-boot-devtools')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	//mplementation('org.springframework.boot:spring-boot-starter-remote-shell')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.projectlombok:lombok')
 	//Incluyendo el módulo de seguridad.
-	compile('org.springframework.boot:spring-boot-starter-security')
+	implementation('org.springframework.boot:spring-boot-starter-security')
 
 	//cliente spring boot admin.
-	compile('de.codecentric:spring-boot-admin-starter-client:2.2.2')
+	implementation('de.codecentric:spring-boot-admin-starter-client:2.7.4')
 
 	//Trabajando con FreeMarker...
-	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	implementation('org.springframework.boot:spring-boot-starter-freemarker')
 
 	//Thymeleaf plantilla Thymeleaf
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 	// https://mvnrepository.com/artifact/com.h2database/h2
-	compile group: 'com.h2database', name: 'h2', version: '1.4.192'
+	implementation group: 'com.h2database', name: 'h2', version: '1.4.192'
 
 	//Trabajando con los webjars. ver http://www.webjars.org/
-	compile 'org.webjars:bootstrap:3.3.7-1'
-	compile 'org.webjars:jquery:3.1.0'
-	compile 'org.webjars:materializecss:0.97.7'
+	implementation 'org.webjars:bootstrap:3.3.7-1'
+	implementation 'org.webjars:jquery:3.1.0'
+	implementation 'org.webjars:materializecss:0.97.7'
 
 	//Incluyendo la librreria de OpenApi3.
-	compile 'org.springdoc:springdoc-openapi-ui:1.2.32'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
 
-	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.8'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.4'
 
 	//Prueba.
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
