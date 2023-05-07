@@ -1,6 +1,6 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'org.springframework.boot' version '3.0.6'
+	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
 }
 
@@ -18,14 +18,14 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-devtools')
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-	//mplementation('org.springframework.boot:spring-boot-starter-remote-shell')
+	implementation('org.springframework.boot:spring-boot-starter-validation')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.projectlombok:lombok')
 	//Incluyendo el módulo de seguridad.
 	implementation('org.springframework.boot:spring-boot-starter-security')
 
 	//cliente spring boot admin.
-	implementation('de.codecentric:spring-boot-admin-starter-client:2.7.4')
+	implementation('de.codecentric:spring-boot-admin-starter-client:3.0.3')
 
 	//Trabajando con FreeMarker...
 	implementation('org.springframework.boot:spring-boot-starter-freemarker')
@@ -34,7 +34,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 	// https://mvnrepository.com/artifact/com.h2database/h2
-	implementation group: 'com.h2database', name: 'h2', version: '1.4.192'
+	implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
 
 	//Trabajando con los webjars. ver http://www.webjars.org/
 	implementation 'org.webjars:bootstrap:3.3.7-1'

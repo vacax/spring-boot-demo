@@ -87,6 +87,7 @@ public class FreeMarkerController {
 
     /**
      * Metodo para probar la redireccion
+     * http://localhost:8080/freemarker/redireccion
      * @param model
      * @return
      */
@@ -100,6 +101,7 @@ public class FreeMarkerController {
      * Metodo para probar el forward, la diferencia es una llamada
      * encadenada en el servidor, no hace otra llamada el cliente.
      * No cambia la URL
+     * http://localhost:8080/freemarker/forward
      * @param model
      * @return
      */

@@ -5,13 +5,13 @@ import edu.pucmm.pwa.encapsulacion.Estudiante;
 import edu.pucmm.pwa.entidades.Profesor;
 import edu.pucmm.pwa.servicios.EstudianteServices;
 import edu.pucmm.pwa.servicios.ProfesorServices;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -99,6 +99,7 @@ public class RestApiController {
      * @return
      */
     @RequestMapping(value = "/estudiante", method = RequestMethod.POST, consumes = {"application/json"})
+    //@PostMapping(value = "/estudiante", consumes =  {"application/json"}) // es lo mismo
     public Estudiante actualizandoEstudiante(@RequestBody Estudiante estudiante){
         System.out.println("El estudiante recibido: "+estudiante.getMatricula());
        return estudiante;

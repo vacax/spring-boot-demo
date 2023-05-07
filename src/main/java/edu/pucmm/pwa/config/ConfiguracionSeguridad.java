@@ -1,108 +1,124 @@
 package edu.pucmm.pwa.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
+
+import edu.pucmm.pwa.servicios.seguridad.SeguridadServices;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
 /**
  * Created by vacax on 27/09/16.
  */
+@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
-public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
+public class ConfiguracionSeguridad  {
 
     //Configuación para la validación del acceso modo JDBC
-    @Autowired
     private DataSource dataSource;
     @Value("${query.user-jdbc}")
     private String queryUsuario;
     @Value("${query.rol-jdbc}")
     private String queryRol;
     //Opción JPA
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private SeguridadServices seguridadServices;
+    private PasswordEncoder passwordEncoder;
+
+    public ConfiguracionSeguridad(DataSource dataSource, SeguridadServices seguridadServices, PasswordEncoder passwordEncoder) {
+        this.dataSource = dataSource;
+        this.seguridadServices = seguridadServices;
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     /**
      * La autentificación de los usuarios.
-     * @param auth
+     * Para habilitar la autentificación de vía JDBC y en Memoria es necesario desconfigurar la clase
+     * JPA por la inyección de dependencia.
+     * @param http
      * @throws Exception
      */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //Clase para encriptar contraseña
-        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder auth =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
 
-        //Cargando los usuarios en memoria.
-        /*auth.inMemoryAuthentication().passwordEncoder(bCryptPasswordEncoder)
+        //En Memoria
+        /*System.out.println("Autentificación en Memoria");
+        auth.inMemoryAuthentication().passwordEncoder(passwordEncoder)
                 .withUser("admin")
-                .password(bCryptPasswordEncoder.encode("admin"))
+                .password(passwordEncoder.encode("otro"))
                 .roles("ADMIN","USER")
                 .and()
                 .withUser("usuario")
-                .password(bCryptPasswordEncoder.encode("1234"))
+                .password(passwordEncoder.encode("1234"))
                 .roles("USER")
                 .and()
                 .withUser("vendedor")
-                .password(bCryptPasswordEncoder.encode("1234"))
+                .password(passwordEncoder.encode("1234"))
                 .roles("VENDEDOR");*/
 
-
-
-        //Configuración para acceso vía JDBC
-        /*auth.jdbcAuthentication()
-                .usersByUsernameQuery(queryUsuario)
+        //Configuración JDBC
+        /*System.out.println("Autentificación JDBC");
+        auth.jdbcAuthentication().usersByUsernameQuery(queryUsuario)
                 .authoritiesByUsernameQuery(queryRol)
-                .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder);*/
+                .passwordEncoder(passwordEncoder)
+                .dataSource(dataSource);*/
 
-        //Configuración JPA.
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);
+        //Servicio.
+        auth.userDetailsService(seguridadServices)
+                .passwordEncoder(passwordEncoder);
+
+
+        return auth.build();
     }
+
+
 
     /*
      * Permite configurar las reglas de seguridad.
      * @param http
      * @throws Exception
      */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //Marcando las reglas para permitir unicamente los usuarios
         http
-                .authorizeRequests()
-                .antMatchers("/","/css/**", "/js/**", "/actuator/**", "/webjars/**").permitAll() //permitiendo llamadas a esas urls.
-                .antMatchers("/dbconsole/**").permitAll()
-                .antMatchers("/thymeleaf/**", "/freemarker/**", "/api/**", "/jpa/**").permitAll()
-                .antMatchers("/api-docs/**", "/api-docs.yaml", "/swagger-ui.html", "/swagger-ui/**").permitAll() //para OpenApi
-                .antMatchers("/admin/").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/estudiantes").permitAll() //hasAnyRole("ADMIN", "USER")
-                .anyRequest().authenticated() //cualquier llamada debe ser validada
-                .and()
-                .formLogin()
-                .loginPage("/login") //indicando la ruta que estaremos utilizando.
-                .failureUrl("/login?error") //en caso de fallar puedo indicar otra pagina.
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+                .authorizeHttpRequests((requests) -> requests
+
+                        .requestMatchers("/","/*.html","/css/**", "/js/**", "/actuator/**", "/webjars/**").permitAll() //permitiendo llamadas a esas urls.
+                        .requestMatchers("/dbconsole/**").permitAll()
+                        .requestMatchers("/thymeleaf/**", "/freemarker/**", "/api/**", "/jpa/**").permitAll()
+                        .requestMatchers("/api-docs/**", "/api-docs.yaml", "/swagger-ui.html", "/swagger-ui/**").permitAll() //para OpenApi
+                        .requestMatchers("/admin/").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/estudiantes/").permitAll() //hasAnyRole("ADMIN", "USER")
+                        .anyRequest().authenticated() //cualquier llamada debe ser validada
+                )
+                .formLogin((form) -> form
+                        .loginPage("/login") //indicando la ruta que estaremos utilizando.
+                        .failureUrl("/login?error") //en caso de fallar puedo indicar otra pagina.
+                        .permitAll()
+                )
+                .logout((logout) -> logout.permitAll());
+
 
         //TODO: validar exclusivamente en ambiente de prueba.
         // deshabilitando las seguridad contra los frame internos.
         //if(!profiles.matches(Pre"prod")){
-            //Necesario para H2.
-            http.csrf().disable();
-            http.headers().frameOptions().disable();
+        //Necesario para H2.
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
         //}
+        return http.build();
     }
 }

@@ -3,9 +3,6 @@ package edu.pucmm.pwa.controladores;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * Clase para demostrar el manejo de los errores.
  * Created by vacax on 29/09/16.

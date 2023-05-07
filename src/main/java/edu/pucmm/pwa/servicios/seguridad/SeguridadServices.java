@@ -4,13 +4,14 @@ import edu.pucmm.pwa.entidades.seguridad.Rol;
 import edu.pucmm.pwa.entidades.seguridad.Usuario;
 import edu.pucmm.pwa.repositorio.seguridad.RolRepository;
 import edu.pucmm.pwa.repositorio.seguridad.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,16 +19,21 @@ import java.util.*;
 @Service
 public class SeguridadServices implements UserDetailsService {
 
-    @Autowired
+
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private RolRepository rolRepository;
+    private PasswordEncoder passwordEncoder;
 
-    //Para encriptar la información.
-    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    public SeguridadServices(UsuarioRepository usuarioRepository, RolRepository rolRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.rolRepository = rolRepository;
+    }
 
-    //cualquier cosa...
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        passwordEncoder = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
+        return passwordEncoder;
+    }
 
     /**
      * Creando el usuario por defecto y su rol.
@@ -39,7 +45,7 @@ public class SeguridadServices implements UserDetailsService {
 
         Usuario admin = new Usuario();
         admin.setUsername("admin");
-        admin.setPassword(bCryptPasswordEncoder.encode("admin"));
+        admin.setPassword(passwordEncoder.encode("admin"));
         admin.setNombre("Administrador");
         admin.setActivo(true);
         admin.setRoles(new HashSet<>(Arrays.asList(rolAdmin)));
@@ -54,6 +60,7 @@ public class SeguridadServices implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("Autenticación JPA");
         Usuario user = usuarioRepository.findByUsername(username);
 
         Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
