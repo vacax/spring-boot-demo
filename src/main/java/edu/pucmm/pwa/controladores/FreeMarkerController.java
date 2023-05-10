@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
 
@@ -109,6 +108,17 @@ public class FreeMarkerController {
     public String forwardPagina(Model model){
         System.out.println("Redireccioando a otra llamada.");
         return "forward:/freemarker/bootstrap"; //aplicando la redirección
+    }
+
+    /**
+     * Permite la salida directa del controlador, sin la necesidad de pasar
+     * por el sistema plantilla.
+     * @return
+     */
+    @GetMapping("/directa")
+    @ResponseBody
+    public String salidaDirecta(){
+        return "Presentando el String de forma directa";
     }
 
 }
