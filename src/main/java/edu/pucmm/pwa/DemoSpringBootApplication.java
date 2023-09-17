@@ -3,7 +3,6 @@ package edu.pucmm.pwa;
 import edu.pucmm.pwa.entidades.Profesor;
 import edu.pucmm.pwa.repositorio.ProfesorRepository;
 import edu.pucmm.pwa.servicios.seguridad.SeguridadServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -39,6 +38,6 @@ public class DemoSpringBootApplication {
 		profesorRepository.save(profesor);
 
 		SeguridadServices seguridadServices = (SeguridadServices) applicationContext.getBean("seguridadServices");
-		seguridadServices.crearUsuarioAdmin();
+		seguridadServices.crearUsuarios();
 	}
 }

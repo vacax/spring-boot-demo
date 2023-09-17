@@ -29,6 +29,10 @@ public class SeguridadServices implements UserDetailsService {
         this.rolRepository = rolRepository;
     }
 
+    /**
+     * Objeto para trabajar la la codificación del password
+     * @return
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         passwordEncoder = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
@@ -38,9 +42,10 @@ public class SeguridadServices implements UserDetailsService {
     /**
      * Creando el usuario por defecto y su rol.
      */
-    public void crearUsuarioAdmin(){
+    public void crearUsuarios(){
         System.out.println("Creación del usuario y rol en la base de datos");
         Rol rolAdmin = new Rol("ROLE_ADMIN");
+        Rol rolUsuario = new Rol("ROLE_USER");
         rolRepository.save(rolAdmin);
 
         Usuario admin = new Usuario();
@@ -50,6 +55,14 @@ public class SeguridadServices implements UserDetailsService {
         admin.setActivo(true);
         admin.setRoles(new HashSet<>(Arrays.asList(rolAdmin)));
         usuarioRepository.save(admin);
+
+        Usuario user = new Usuario();
+        user.setUsername("user");
+        user.setPassword(passwordEncoder.encode("user"));
+        user.setNombre("Usuario");
+        user.setActivo(true);
+        user.setRoles(new HashSet<>(Arrays.asList(rolUsuario)));
+        usuarioRepository.save(user);
     }
 
     /**
@@ -62,6 +75,9 @@ public class SeguridadServices implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("Autenticación JPA");
         Usuario user = usuarioRepository.findByUsername(username);
+        if(user==null){
+            throw new UsernameNotFoundException("Usuario no existe.");
+        }
 
         Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
         for (Rol role : user.getRoles()) {

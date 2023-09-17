@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Locale;
 import java.util.Map;
 
 @Controller() //indica que es un controlador.
@@ -33,5 +34,11 @@ public class ThymeleafController {
         model.addAttribute("otraVariable", "asdasdasdas");
         // direccioando a la vista.
         return "/thymeleaf/index";
+    }
+
+    @GetMapping("/i18n")
+    public String internacional(Model model, Locale locale){
+        model.addAttribute("mensaje", "Pagina desde Thymeleaf");
+        return "/thymeleaf/i18n.html";
     }
 }
