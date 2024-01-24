@@ -14,7 +14,7 @@ repositories {
 }
 
 ext {
-	set('springBootAdminVersion', "3.1.5")
+	set('springBootAdminVersion', "3.2.1")
 }
 
 dependencies {

@@ -124,6 +124,7 @@ public class ConfiguracionSeguridad {
                                 .requestMatchers(mvc.pattern("/h2-console/**")).permitAll()
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/thymeleaf/**"),
                                         AntPathRequestMatcher.antMatcher("/freemarker/**"),
+                                        AntPathRequestMatcher.antMatcher("/actuator/**"),
                                         AntPathRequestMatcher.antMatcher("/api/**"),
                                         AntPathRequestMatcher.antMatcher("/jpa/**")).permitAll()
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/api-docs/**"),
