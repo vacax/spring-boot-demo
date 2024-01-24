@@ -117,10 +117,19 @@ public class ConfiguracionSeguridad {
         http.authorizeHttpRequests(authorization ->
                         authorization
                                 .requestMatchers(mvc.pattern("/")).permitAll() //permitiendo llamadas a esas urls.
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/css/**"), AntPathRequestMatcher.antMatcher("/js/**"), AntPathRequestMatcher.antMatcher("/webjars/**"), AntPathRequestMatcher.antMatcher("*.html")).permitAll() //permitiendo llamadas a esas urls.
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/css/**"),
+                                        AntPathRequestMatcher.antMatcher("/js/**"),
+                                        AntPathRequestMatcher.antMatcher("/webjars/**"),
+                                        AntPathRequestMatcher.antMatcher("*.html")).permitAll() //permitiendo llamadas a esas urls.
                                 .requestMatchers(mvc.pattern("/h2-console/**")).permitAll()
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/thymeleaf/**"), AntPathRequestMatcher.antMatcher("/freemarker/**"), AntPathRequestMatcher.antMatcher("/api/**"), AntPathRequestMatcher.antMatcher("/jpa/**")).permitAll()
-                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api-docs/**"), AntPathRequestMatcher.antMatcher("/api-docs.yaml"), AntPathRequestMatcher.antMatcher("/swagger-ui.html"), AntPathRequestMatcher.antMatcher("/swagger-ui/**")).permitAll() //para OpenApi
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/thymeleaf/**"),
+                                        AntPathRequestMatcher.antMatcher("/freemarker/**"),
+                                        AntPathRequestMatcher.antMatcher("/api/**"),
+                                        AntPathRequestMatcher.antMatcher("/jpa/**")).permitAll()
+                                .requestMatchers(AntPathRequestMatcher.antMatcher("/api-docs/**"),
+                                        AntPathRequestMatcher.antMatcher("/api-docs.yaml"),
+                                        AntPathRequestMatcher.antMatcher("/swagger-ui.html"),
+                                        AntPathRequestMatcher.antMatcher("/swagger-ui/**")).permitAll() //para OpenApi
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/")).hasAnyRole("ADMIN", "USER")
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/estudiantes/")).permitAll() //hasAnyRole("ADMIN", "USER")
                                 .requestMatchers(AntPathRequestMatcher.antMatcher("/logout")).permitAll()
