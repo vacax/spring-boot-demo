@@ -19,7 +19,7 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
     Profesor findByNombreAndApellido(String nombre, String apellido);
 
     //Documentación de algunas formas de hacer las consultas.
-    //http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
+    //https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
 
     List<Profesor> findAllByCiudadIsNotNull();
     List<Profesor> findAllByNombreStartingWith(String nombre);
