@@ -2,6 +2,5 @@
 Proyecto Demostración Spring Boot
 
 Se incluye varias funcionalidades sobre el uso del framework Spring Boot. Utiliza:
-* JDK 21.
-* Spring Boot 3.3.3
-* Spring Security 6.1.3
+* JDK 25.
+* Spring Boot 4.0.1

@@ -2,8 +2,8 @@ package edu.pucmm.pwa.controladores;
 
 import edu.pucmm.pwa.ambientes.AmbienteSesion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
@@ -35,19 +35,19 @@ public class AdminController {
      * https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html
      * @return
      */
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @RequestMapping("/crear")
     public String crear(){
         return "Crear del admin";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @RequestMapping("/borrar")
     public String borrar(){
         return "Borrar del admin";
     }
 
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @RequestMapping("/actualizar")
     public String actualizar(){
         return "Actualizar del admin";

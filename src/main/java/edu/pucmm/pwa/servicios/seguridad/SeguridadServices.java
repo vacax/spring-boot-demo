@@ -5,24 +5,24 @@ import edu.pucmm.pwa.entidades.seguridad.Usuario;
 import edu.pucmm.pwa.repositorio.seguridad.RolRepository;
 import edu.pucmm.pwa.repositorio.seguridad.UsuarioRepository;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.GrantedAuthority;
+/*import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;*/
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class SeguridadServices implements UserDetailsService {
+public class SeguridadServices /*implements UserDetailsService*/ {
 
 
     private UsuarioRepository usuarioRepository;
     private RolRepository rolRepository;
-    private PasswordEncoder passwordEncoder;
+    //private PasswordEncoder passwordEncoder;
 
     public SeguridadServices(UsuarioRepository usuarioRepository, RolRepository rolRepository) {
         this.usuarioRepository = usuarioRepository;
@@ -33,11 +33,11 @@ public class SeguridadServices implements UserDetailsService {
      * Objeto para trabajar la la codificación del password
      * @return
      */
-    @Bean
+    /*@Bean
     PasswordEncoder passwordEncoder() {
         passwordEncoder = Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
         return passwordEncoder;
-    }
+    }*/
 
     /**
      * Creando el usuario por defecto y su rol.
@@ -50,7 +50,7 @@ public class SeguridadServices implements UserDetailsService {
 
         Usuario admin = new Usuario();
         admin.setUsername("admin");
-        admin.setPassword(passwordEncoder.encode("admin"));
+        //admin.setPassword(passwordEncoder.encode("admin"));
         admin.setNombre("Administrador");
         admin.setActivo(true);
         admin.setRoles(new HashSet<>(Arrays.asList(rolAdmin)));
@@ -58,7 +58,7 @@ public class SeguridadServices implements UserDetailsService {
 
         Usuario user = new Usuario();
         user.setUsername("user");
-        user.setPassword(passwordEncoder.encode("user"));
+        //user.setPassword(passwordEncoder.encode("user"));
         user.setNombre("Usuario");
         user.setActivo(true);
         user.setRoles(new HashSet<>(Arrays.asList(rolUsuario)));
@@ -71,7 +71,7 @@ public class SeguridadServices implements UserDetailsService {
      * @return
      * @throws UsernameNotFoundException
      */
-    @Override
+   /* @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("Autenticación JPA");
         Usuario user = usuarioRepository.findByUsername(username);
@@ -87,5 +87,5 @@ public class SeguridadServices implements UserDetailsService {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.isActivo(), true, true, true, grantedAuthorities);
-    }
+    }*/
 }

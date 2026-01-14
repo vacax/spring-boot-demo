@@ -1,7 +1,7 @@
 package edu.pucmm.pwa.config;
 
 
-import edu.pucmm.pwa.servicios.seguridad.SeguridadServices;
+/*import edu.pucmm.pwa.servicios.seguridad.SeguridadServices;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,17 +22,17 @@ import org.springframework.security.web.util.matcher.AndRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-import javax.sql.DataSource;
+import javax.sql.DataSource;*/
 
 /**
  * Created by vacax on 27/09/16.
  */
-@Configuration
+/*@Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity*/
 public class ConfiguracionSeguridad {
 
-    //Configuación para la validación del acceso modo JDBC
+   /* //Configuación para la validación del acceso modo JDBC
     private DataSource dataSource;
     @Value("${query.user-jdbc}")
     private String queryUsuario;
@@ -48,33 +48,33 @@ public class ConfiguracionSeguridad {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
+    *//**
      * Manejando el MvcRequestMatcher como mitigación al problema de https://spring.io/security/cve-2023-34035
      * Ver: https://stackoverflow.com/questions/76809698/spring-security-method-cannot-decide-pattern-is-mvc-or-not-spring-boot-applicati
      *
      * @param introspector
      * @return
-     */
+     *//*
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
         return new MvcRequestMatcher.Builder(introspector);
     }
 
-    /**
+    *//**
      * La autentificación de los usuarios.
      * Para habilitar la autentificación de vía JDBC y en Memoria es necesario desconfigurar la clase
      * JPA por la inyección de dependencia.
      *
      * @param http
      * @throws Exception
-     */
+     *//*
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder auth =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
 
         //En Memoria
-        /*System.out.println("Autentificación en Memoria");
+        *//*System.out.println("Autentificación en Memoria");
         auth.inMemoryAuthentication().passwordEncoder(passwordEncoder)
                 .withUser("admin")
                 .password(passwordEncoder.encode("admin"))
@@ -86,14 +86,14 @@ public class ConfiguracionSeguridad {
                 .and()
                 .withUser("vendedor")
                 .password(passwordEncoder.encode("1234"))
-                .roles("VENDEDOR");*/
+                .roles("VENDEDOR");*//*
 
         //Configuración JDBC
-        /*System.out.println("Autentificación JDBC");
+        *//*System.out.println("Autentificación JDBC");
         auth.jdbcAuthentication().usersByUsernameQuery(queryUsuario)
                 .authoritiesByUsernameQuery(queryRol)
                 .passwordEncoder(passwordEncoder)
-                .dataSource(dataSource);*/
+                .dataSource(dataSource);*//*
 
         //Servicio.
         System.out.println("Autentificación en JPA");
@@ -104,7 +104,7 @@ public class ConfiguracionSeguridad {
         return auth.build();
     }
 
-    /**
+    *//**
      * Metodo para el registro de autorización, ver la diferencia entre antmatcher y mvcmatcher:
      * https://stackoverflow.com/questions/50536292/difference-between-antmatcher-and-mvcmatcher
      * MVCMatcher controla más patrones asociados, mientras que el antmatcher es exacto.
@@ -113,7 +113,7 @@ public class ConfiguracionSeguridad {
      * @param mvc
      * @return
      * @throws Exception
-     */
+     *//*
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -152,7 +152,7 @@ public class ConfiguracionSeguridad {
                         .permitAll());
         return http.build();
     }
-
+*/
 }
 
 
